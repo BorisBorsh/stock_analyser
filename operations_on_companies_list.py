@@ -29,10 +29,11 @@ def to_fixed(numObj, digits=0):
     return f"{numObj:.{digits}f}"
 
 
-def get_fundamental_analysis_on_champs_list(ws, eval_model):
+def get_fundamental_analysis_on_champs_list(worksheet, eval_model):
     """Analysing preliminary list of potential champs in stock list using fundamental analysis parameters"""
 
     print("Analysing preliminary champions list")
+    ws = worksheet
     prelim_champ_list = []
     company_list_start_indx = first_company_in_list_cell(ws)
     company_list_end_indx = last_company_in_list_cell(ws)
@@ -69,7 +70,32 @@ def get_fundamental_analysis_on_champs_list(ws, eval_model):
     return prelim_champ_list
 
 
-#def get_colored_fundamental_parameters_of_company_in_list():
+def get_colored_fundamental_parameters_of_companies_in_list(companies_list, worksheet, color_fill):
+    """"""
+    ws = worksheet
+    company_list_start_indx = first_company_in_list_cell(ws)
+    company_list_end_indx = last_company_in_list_cell(ws)
+
+    for company in range(0, len(companies_list)):
+        i = find_company_in_list(companies_list[company]['company_name'], worksheet, company_list_start_indx,
+                                 company_list_end_indx)
+        #Fill cells
+        # Div Years
+        ws['E' + str(i)].fill = color_fill
+        # Overall AVG divs
+        ws['J' + str(i)].fill = color_fill
+        # MR last dividends inc%
+        ws['R' + str(i)].fill = color_fill
+        # EPS a part of profit to dividends
+        ws['Z' + str(i)].fill = color_fill
+        # P/E AVG
+        ws['AA' + str(i)].fill = color_fill
+        # MktCap, $Mil
+        ws['AL' + str(i)].fill = color_fill
+        # Est. div in 5 years Payback, %
+        ws['AX' + str(i)].fill = color_fill
+        # ws['A' + str(i)].font = Font(b=True, color='0fe00b')
+
 
 
 """def binary_search(company_name, worksheet, first_indx, last_indx):

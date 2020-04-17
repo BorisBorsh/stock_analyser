@@ -19,11 +19,9 @@ green_grad_bg_fill = GradientFill(stop=("0fe00b", "FFFFFF"))
 
 
 prelim_champs_list = get_fundamental_analysis_on_champs_list(ws, stnd_model)
+get_colored_fundamental_parameters_of_companies_in_list(prelim_champs_list, ws, green_grad_bg_fill)
 
 champ_list = prelim_champs_list
-        #ws['A' + str(i)].font = Font(b=True, color='0fe00b')
-        #ws['A' + str(i)].fill = green_grad_bg_fill
-        # FFFF0000 red font color
 
 
 ws_hist = wb['Historical']
