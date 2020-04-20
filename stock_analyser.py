@@ -1,54 +1,44 @@
 import loadfile
 import os
 from operations_on_companies_list import *
+from analyse_and_highlight_data import get_champ_list_after_fundamental_analysis, \
+                                color_fundamental_parameters_of_companies_in_list, \
+                                get_champ_list_after_5years_dividends_increase_in_row_analysis, \
+                                color_params_of_champ_list_5years_dividends_increase_in_row
 from openpyxl import load_workbook
 from openpyxl.styles import GradientFill
 from openpyxl.styles import Font
 from evaluation_properties import StandardEvaluationModel
 
 excel_file_path = r'C:\\Champions.xlsx'
-loadFile_permission = False
+download_file_permission = False
 
 wb = load_workbook(filename=excel_file_path, data_only=True)
 ws = wb['Champions']
+ws_hist = wb['Historical']
 
 stnd_model = StandardEvaluationModel()
-prelim_champs_list = []
 
+
+#Colored fill for cells
 green_grad_bg_fill = GradientFill(stop=("0fe00b", "FFFFFF"))
+blue_grad_bg_fill = GradientFill(stop=("00e7fe", "FFFFFF"))
+
+#Get a preliminary list of champions according to fundamental  analysis of companies parameters
+prelim_champs_list = get_champ_list_after_fundamental_analysis(ws, stnd_model)
+#Fill with color all the cells that passed fundamental requirements
+color_fundamental_parameters_of_companies_in_list(prelim_champs_list, ws, blue_grad_bg_fill)
+
+#Check if preliminary list of companies are met conditions of 5 years in row of dividend increase
+post_prelim_champs_list = get_champ_list_after_5years_dividends_increase_in_row_analysis(prelim_champs_list,
+                                                                                         stnd_model, ws_hist)
+#Color fill all the cells that met conditions of 5 years in row of dividend increase
+get_champ_list_after_5years_dividends_increase_in_row_analysis(post_prelim_champs_list, ws_hist, green_grad_bg_fill)
+#
+color_params_of_champ_list_5years_dividends_increase_in_row(post_prelim_champs_list, ws_hist, blue_grad_bg_fill)
 
 
-prelim_champs_list = get_fundamental_analysis_on_champs_list(ws, stnd_model)
-get_colored_fundamental_parameters_of_companies_in_list(prelim_champs_list, ws, green_grad_bg_fill)
-
-champ_list = prelim_champs_list
-
-
-ws_hist = wb['Historical']
-company_hist_list_start_indx = first_company_in_list_cell(ws_hist)
-company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
-
-#Percentage Increase by Year Analysis (5 years row)
-result_array = []
-for company in range(0, len(champ_list)):
-    i = find_company_in_list(champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx, company_hist_list_end_indx)
-
-    if (
-        ws_hist['AA' + str(i)].value >= stnd_model.percentage_increase_by_year
-        and ws_hist['AB' + str(i)].value >= stnd_model.percentage_increase_by_year
-        and ws_hist['AC' + str(i)].value >= stnd_model.percentage_increase_by_year
-        and ws_hist['AD' + str(i)].value >= stnd_model.percentage_increase_by_year
-        and ws_hist['AE' + str(i)].value >= stnd_model.percentage_increase_by_year
-    ):
-        result_array.append(champ_list[company])
-        ws_hist['AA' + str(i)].fill = green_grad_bg_fill
-        ws_hist['AB' + str(i)].fill = green_grad_bg_fill
-        ws_hist['AC' + str(i)].fill = green_grad_bg_fill
-        ws_hist['AD' + str(i)].fill = green_grad_bg_fill
-        ws_hist['AE' + str(i)].fill = green_grad_bg_fill
-
-champ_list = result_array
-
+champ_list = post_prelim_champs_list
 
 #Year by year dividend growth
 result_array = []

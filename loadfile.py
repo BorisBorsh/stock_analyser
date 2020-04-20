@@ -1,7 +1,7 @@
 import requests
 
 
-def load_excel_file():
+def download_excel_file():
     """Downloading exel file of dividend champs"""
 
     with open('file_url.txt') as url_file:
@@ -16,4 +16,5 @@ def load_excel_file():
 
 
 if __name__ == '__main__':
-    load_excel_file()
+    print("Starting stock analyser.")
+    download_excel_file()
