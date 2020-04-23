@@ -5,7 +5,6 @@ from operations_on_companies_list import first_company_in_list_cell, last_compan
 def get_champ_list_after_fundamental_analysis(champ_worksheet, eval_model):
     """Analysing preliminary list of potential champs in stock list using fundamental analysis parameters"""
 
-    print("Analysing preliminary champions list")
     ws = champ_worksheet
     resulted_champ_list = []
     company_list_start_indx = first_company_in_list_cell(ws)
@@ -77,7 +76,6 @@ def color_fundamental_parameters_of_companies_in_list(companies_list, champ_work
 def get_champ_list_after_5years_dividends_increase_in_row_analysis(input_champ_list, eval_model, hist_worksheet):
     """Analysing dividends magnification for 5 years in row"""
 
-    print("Analysing post preliminary champions list")
     ws_hist = hist_worksheet
     company_hist_list_start_indx = first_company_in_list_cell(ws_hist)
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
@@ -122,7 +120,6 @@ def color_params_of_champ_list_5years_dividends_increase_in_row(input_champ_list
 def get_final_champ_list_after_year_by_year_div_growth_analysis(input_champ_list, hist_worksheet):
     """"""
 
-    print("Analysing final champions list")
     ws_hist = hist_worksheet
     company_hist_list_start_indx = first_company_in_list_cell(ws_hist)
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
