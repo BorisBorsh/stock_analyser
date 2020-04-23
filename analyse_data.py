@@ -68,7 +68,7 @@ def get_champ_list_after_5years_dividends_increase_in_row_analysis(input_champ_l
 
 # Year by year dividend growth
 def get_final_champ_list_after_year_by_year_div_growth_analysis(input_champ_list, hist_worksheet):
-    """"""
+    """ Analyse parameters of dividends growth year by year is companies history"""
 
     ws_hist = hist_worksheet
     company_hist_list_start_indx = first_company_in_list_cell(ws_hist)

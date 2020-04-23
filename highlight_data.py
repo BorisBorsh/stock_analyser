@@ -53,7 +53,8 @@ def color_params_of_champ_list_5years_dividends_increase_in_row(input_champ_list
 
 
 def color_champ_list_after_year_by_year_div_growth_analysis(input_champ_list, hist_worksheet, color_fill):
-    """"""
+    """Color all params(dividends growth, %) that were analysed during year by year
+        dividends growth is companies history"""
 
     ws_hist = hist_worksheet
     company_hist_list_start_indx = first_company_in_list_cell(ws_hist)
