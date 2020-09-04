@@ -30,6 +30,7 @@ def get_champ_list_after_fundamental_analysis(champ_worksheet, eval_model):
         ):
             champion = dict()
             champion['company_name'] = ws['A' + str(i)].value
+            champion['ticker'] = ws['B' + str(i)].value
             champion['div_years_row'] = ws['E' + str(i)].value
             champion['dividends_avg'] = to_fixed(ws['J' + str(i)].value, 2)
             champion['MR%'] = to_fixed(ws['R' + str(i)].value, 2)
