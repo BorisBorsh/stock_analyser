@@ -33,20 +33,27 @@ if __name__ == "__main__":
     blue_grad_bg_fill = GradientFill(stop=("00e7fe", "FFFFFF"))
 
     print("Analysing champions list")
+    #PRELIM CHAMPIONS LOGIC
     #Get a preliminary list of champions according to fundamental  analysis of companies parameters
     prelim_champs_list = get_champ_list_after_fundamental_analysis(ws, stnd_model)
     #Fill with color all the cells that passed fundamental requirements
     color_fundamental_parameters_of_companies_in_list(prelim_champs_list, ws, blue_grad_bg_fill)
+    #Color fill prelim chaps that could met conditions of 5 years in row of dividend increase
+    color_champ_list_after_year_by_year_div_growth_analysis(prelim_champs_list, ws_hist, blue_grad_bg_fill)
+    #Color fill prelim chaps that could met conditions of year by year div growth
+    color_params_of_champ_list_5years_dividends_increase_in_row(prelim_champs_list, ws_hist, blue_grad_bg_fill)
 
+    #POST_PRELIM CHAMPIONS LOGIC (5 YEARS DIV GROWTH)
     #Check if preliminary list of companies are met conditions of 5 years in row of dividend increase
     post_prelim_champs_list = get_champ_list_after_5years_dividends_increase_in_row_analysis(prelim_champs_list,
                                                                                              stnd_model, ws_hist)
     #Color fill all the cells that met conditions of 5 years in row of dividend increase
     color_params_of_champ_list_5years_dividends_increase_in_row(post_prelim_champs_list, ws_hist, blue_grad_bg_fill)
 
+    #FINAL CHAMPIONS LOGIC (YEAR BY YEAR DIV GROWTH)
     #Get a final list of champions according analysis of year by year div growth
     final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis(post_prelim_champs_list, ws_hist)
-    #Color parameters of year by year div growth with blue fill
+    #Color parameters of year by year div growth with green fill
     color_champ_list_after_year_by_year_div_growth_analysis(final_champ_list, ws_hist, green_grad_bg_fill)
     #Color parameters of year by year div growth with green fill (for final list)
     color_params_of_champ_list_5years_dividends_increase_in_row(final_champ_list, ws_hist, green_grad_bg_fill)
