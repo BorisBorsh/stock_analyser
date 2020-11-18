@@ -2,7 +2,7 @@ import requests
 
 
 def download_excel_data_file(excel_data_file_path):
-    """Downloading exel file of dividend champs"""
+    """Downloading excel file of dividend champs"""
 
     with open('file_url.txt') as url_file:
         url = url_file.read()
