@@ -7,7 +7,6 @@ from highlight_data import color_fundamental_parameters_of_companies_in_list, \
                            color_params_of_champ_list_5years_dividends_increase_in_row, \
                            color_champ_list_after_year_by_year_div_growth_analysis
 from openpyxl import load_workbook
-from openpyxl.styles import GradientFill
 from evaluation_properties import StandardEvaluationModel
 
 
@@ -33,8 +32,7 @@ if __name__ == "__main__":
         stnd_model.div_years_adjustment(company_type)
 
         #Colored fill for cells
-        final_grad_bg_fill = GradientFill(stop=("0fe00b", "FFFFFF"))
-        preliminary_grad_bg_fill = GradientFill(stop=("00e7fe", "FFFFFF"))
+        final_grad_bg_fill, preliminary_grad_bg_fill = stnd_model.color_adjustment(company_type)
 
         print("Analysing ", company_type, " list")
         #PRELIM CHAMPIONS LOGIC
