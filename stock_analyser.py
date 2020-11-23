@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     excel_data_file_path = r'C:\\Champions.xlsx'
     analyzed_excel_data_file_path = 'C:\\Result.xlsx'
-    download_data_file_permission = False
+    download_data_file_permission = True
 
     if download_data_file_permission:
         download_excel_data_file(excel_data_file_path)
