@@ -2,7 +2,8 @@ import os
 from download_data_file import download_excel_data_file
 from analyse_data import get_champ_list_after_fundamental_analysis, \
                          get_champ_list_after_5years_dividends_increase_in_row_analysis, \
-                         get_final_champ_list_after_year_by_year_div_growth_analysis
+                         get_final_champ_list_after_year_by_year_div_growth_analysis, \
+                         get_final_champ_list_after_year_by_year_div_growth_analysis_contenders
 from highlight_data import color_fundamental_parameters_of_companies_in_list, \
                            color_params_of_champ_list_5years_dividends_increase_in_row, \
                            color_champ_list_after_year_by_year_div_growth_analysis
@@ -54,7 +55,12 @@ if __name__ == "__main__":
 
         #FINAL CHAMPIONS LOGIC (YEAR BY YEAR DIV GROWTH)
         #Get a final list of champions according analysis of year by year div growth
-        final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis(post_prelim_champs_list, ws_hist)
+        if company_type == 'Champions':
+            final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis(post_prelim_champs_list,
+                                                                                           ws_hist)
+        else:
+            final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis_contenders(post_prelim_champs_list,
+                                                                                           ws_hist)
         #Color parameters of year by year div growth with green fill
         color_champ_list_after_year_by_year_div_growth_analysis(final_champ_list, ws_hist, final_grad_bg_fill)
         #Color parameters of year by year div growth with green fill (for final list)

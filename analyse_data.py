@@ -107,6 +107,40 @@ def get_final_champ_list_after_year_by_year_div_growth_analysis(input_champ_list
     return champ_array_year_by_year_div_growth
 
 
+# Year by year dividend growth of Contenders
+def get_final_champ_list_after_year_by_year_div_growth_analysis_contenders(input_champ_list, hist_worksheet):
+    """ Analyse parameters of dividends growth year by year is companies history"""
+
+    ws_hist = hist_worksheet
+    company_hist_list_start_indx = first_company_in_list_cell(ws_hist)
+    company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
+    champ_array_year_by_year_div_growth = []
+    for company in range(0, len(input_champ_list)):
+        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+                                 company_hist_list_end_indx)
+
+        if (
+                ws_hist['C' + str(i)].font.color is None
+                and ws_hist['D' + str(i)].font.color is None
+                and ws_hist['E' + str(i)].font.color is None
+                and ws_hist['F' + str(i)].font.color is None
+                and ws_hist['G' + str(i)].font.color is None
+                and ws_hist['H' + str(i)].font.color is None
+                and ws_hist['I' + str(i)].font.color is None
+                and ws_hist['K' + str(i)].font.color is None
+                and ws_hist['L' + str(i)].font.color is None
+                and ws_hist['N' + str(i)].font.color is None
+                and ws_hist['O' + str(i)].font.color is None
+                and ws_hist['P' + str(i)].font.color is None
+                and ws_hist['Q' + str(i)].font.color is None
+                and ws_hist['R' + str(i)].font.color is None
+                and ws_hist['S' + str(i)].font.color is None
+        ):
+            champ_array_year_by_year_div_growth.append(input_champ_list[company])
+
+    return champ_array_year_by_year_div_growth
+
+
 """def binary_search(company_name, worksheet, first_indx, last_indx):
     low = first_indx
     high = last_indx

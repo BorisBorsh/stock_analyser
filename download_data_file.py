@@ -2,8 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-
-
 def download_excel_data_file(excel_data_file_path):
     """Downloading excel file of dividend champs"""
 
