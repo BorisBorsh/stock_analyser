@@ -45,11 +45,11 @@ def color_params_of_champ_list_5years_dividends_increase_in_row(input_champ_list
         i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
-        ws_hist['AA' + str(i)].fill = color_fill
         ws_hist['AB' + str(i)].fill = color_fill
         ws_hist['AC' + str(i)].fill = color_fill
         ws_hist['AD' + str(i)].fill = color_fill
         ws_hist['AE' + str(i)].fill = color_fill
+        ws_hist['AF' + str(i)].fill = color_fill
 
 
 def color_champ_list_after_year_by_year_div_growth_analysis(input_champ_list, hist_worksheet, color_fill):

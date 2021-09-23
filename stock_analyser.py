@@ -1,76 +1,61 @@
-import os
-from download_data_file import download_excel_data_file
-from analyse_data import get_champ_list_after_fundamental_analysis, \
-                         get_champ_list_after_5years_dividends_increase_in_row_analysis, \
-                         get_final_champ_list_after_year_by_year_div_growth_analysis, \
-                         get_final_champ_list_after_year_by_year_div_growth_analysis_contenders
-from highlight_data import color_fundamental_parameters_of_companies_in_list, \
-                           color_params_of_champ_list_5years_dividends_increase_in_row, \
-                           color_champ_list_after_year_by_year_div_growth_analysis
-from openpyxl import load_workbook
-from evaluation_properties import StandardEvaluationModel
+from analyse_data import analyze_file
+from tkinter import filedialog
+from tkinter import *
+
+window = Tk()
+window.title('Stock Analyzer')
 
 
-if __name__ == "__main__":
+# Actions
+def file_selected():
+    file_selected = filedialog.askopenfilename()
+    input_file_path.delete(0, "end")
+    input_file_path.insert(0, file_selected)
+    # cacheFile = open("cache.txt", "w")
+    # cacheFile.write(folder_selected)
+    # cacheFile.close()
+    print(input_file_path.get())
 
-    print("Starting stock analyser")
 
-    excel_data_file_path = r'C:\\Champions.xlsx'
-    analyzed_excel_data_file_path = 'C:\\Result.xlsx'
-    download_data_file_permission = True
+def folder_selected():
+    folder_selected = filedialog.askdirectory()
+    output_file_path.delete(0, "end")
+    output_file_path.insert(0, folder_selected)
+    # cacheFile = open("cache.txt", "w")
+    # cacheFile.write(folder_selected)
+    # cacheFile.close()
+    final_output_dest_path = output_file_path.get() + "/" + "Result.xlsx"
+    output_file_path.delete(0, "end")
+    output_file_path.insert(0, final_output_dest_path)
 
-    if download_data_file_permission:
-        download_excel_data_file(excel_data_file_path)
 
-    company_types = ['Champions', 'Contenders']
-    wb = load_workbook(filename=excel_data_file_path, data_only=True)
-    ws_hist = wb['Historical']
+def analyze():
+    excel_data_file_path = input_file_path.get()
+    analyzed_excel_data_file_path = output_file_path.get()
+    analyze_file(excel_data_file_path, analyzed_excel_data_file_path)
 
-    for company_type in company_types:
-        ws = wb[company_type]
 
-        stnd_model = StandardEvaluationModel()
-        stnd_model.div_years_adjustment(company_type)
+# Input file labels
+input_dest_label = Label(window, text="INPUT EXCEL FILE DIR ", font=("Calibri", 12))
+input_dest_label.grid(column=0, row=0, sticky="W")
+output_dest_label = Label(window, text="OUTPUT FILE NAME ", font=("Calibri", 12))
+output_dest_label.grid(column=0, row=1, sticky="W")
 
-        #Colored fill for cells
-        final_grad_bg_fill, preliminary_grad_bg_fill = stnd_model.color_adjustment(company_type)
+# Path to files
+input_file_path = Entry(window, width=65)
+input_file_path.grid(column=1, row=0)
+output_file_path = Entry(window, width=65)
+output_file_path.grid(column=1, row=1)
 
-        print("Analysing ", company_type, " list")
-        #PRELIM CHAMPIONS LOGIC
-        #Get a preliminary list of champions according to fundamental  analysis of companies parameters
-        prelim_champs_list = get_champ_list_after_fundamental_analysis(ws, stnd_model)
-        #Fill with color all the cells that passed fundamental requirements
-        color_fundamental_parameters_of_companies_in_list(prelim_champs_list, ws, preliminary_grad_bg_fill)
-        #Color fill prelim chaps that could met conditions of 5 years in row of dividend increase
-        color_champ_list_after_year_by_year_div_growth_analysis(prelim_champs_list, ws_hist, preliminary_grad_bg_fill)
-        #Color fill prelim chaps that could met conditions of year by year div growth
-        color_params_of_champ_list_5years_dividends_increase_in_row(prelim_champs_list, ws_hist, preliminary_grad_bg_fill)
+# Buttons
+btn_browse_input_file = Button(window, text="Browse", command=file_selected)
+btn_browse_input_file.grid(column=2, row=0)
+btn_browse_input_path = Button(window, text="Browse", command=folder_selected)
+btn_browse_input_path.grid(column=2, row=1)
+btn_analyze = Button(window, text="Analyze!", font=("Calibri", 12, "bold"), fg="green", command=analyze)
+btn_analyze.grid(column=1, row=2, pady=40, padx=130, sticky="SW")
 
-        #POST_PRELIM CHAMPIONS LOGIC (5 YEARS DIV GROWTH)
-        #Check if preliminary list of companies are met conditions of 5 years in row of dividend increase
-        post_prelim_champs_list = get_champ_list_after_5years_dividends_increase_in_row_analysis(prelim_champs_list,
-                                                                                                 stnd_model, ws_hist)
-        #Color fill all the cells that met conditions of 5 years in row of dividend increase
-        color_params_of_champ_list_5years_dividends_increase_in_row(post_prelim_champs_list, ws_hist, preliminary_grad_bg_fill)
+window.geometry('650x150')
 
-        #FINAL CHAMPIONS LOGIC (YEAR BY YEAR DIV GROWTH)
-        #Get a final list of champions according analysis of year by year div growth
-        if company_type == 'Champions':
-            final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis(post_prelim_champs_list,
-                                                                                           ws_hist)
-        else:
-            final_champ_list = get_final_champ_list_after_year_by_year_div_growth_analysis_contenders(post_prelim_champs_list,
-                                                                                           ws_hist)
-        #Color parameters of year by year div growth with green fill
-        color_champ_list_after_year_by_year_div_growth_analysis(final_champ_list, ws_hist, final_grad_bg_fill)
-        #Color parameters of year by year div growth with green fill (for final list)
-        color_params_of_champ_list_5years_dividends_increase_in_row(final_champ_list, ws_hist, final_grad_bg_fill)
-        #Color all the cells of fundamental parameters fo final champ list
-        color_fundamental_parameters_of_companies_in_list(final_champ_list, ws, final_grad_bg_fill)
-
-    print("Saving data to ", analyzed_excel_data_file_path)
-
-    wb.save(analyzed_excel_data_file_path)
-    print("DONE!")
-
-    os.startfile(analyzed_excel_data_file_path)
+if __name__ == '__main__':
+    window.mainloop()
