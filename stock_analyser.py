@@ -8,25 +8,24 @@ window.title('Stock Analyzer')
 
 # Actions
 def file_selected():
-    file_selected = filedialog.askopenfilename()
+    chosen_file = filedialog.askopenfilename()
     input_file_path.delete(0, "end")
-    input_file_path.insert(0, file_selected)
+    input_file_path.insert(0, chosen_file)
     # cacheFile = open("cache.txt", "w")
     # cacheFile.write(folder_selected)
     # cacheFile.close()
-    print(input_file_path.get())
 
 
 def folder_selected():
-    folder_selected = filedialog.askdirectory()
+    chosen_folder = filedialog.askdirectory()
     output_file_path.delete(0, "end")
-    output_file_path.insert(0, folder_selected)
+    output_file_path.insert(0, chosen_folder)
     # cacheFile = open("cache.txt", "w")
     # cacheFile.write(folder_selected)
     # cacheFile.close()
-    final_output_dest_path = output_file_path.get() + "/" + "Result.xlsx"
+    final_output_path = output_file_path.get() + "/" + "Result.xlsx"
     output_file_path.delete(0, "end")
-    output_file_path.insert(0, final_output_dest_path)
+    output_file_path.insert(0, final_output_path)
 
 
 def analyze():
@@ -55,7 +54,7 @@ btn_browse_input_path.grid(column=2, row=1)
 btn_analyze = Button(window, text="Analyze!", font=("Calibri", 12, "bold"), fg="green", command=analyze)
 btn_analyze.grid(column=1, row=2, pady=40, padx=130, sticky="SW")
 
-window.geometry('650x150')
+window.geometry('650x170')
 
 if __name__ == '__main__':
     window.mainloop()

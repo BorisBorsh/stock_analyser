@@ -11,7 +11,7 @@ def color_fundamental_parameters_of_companies_in_list(companies_list, champ_work
     company_list_end_indx = last_company_in_list_cell(ws)
 
     for company in range(0, len(companies_list)):
-        i = find_company_in_list(companies_list[company]['company_name'], ws, company_list_start_indx,
+        i = find_company_in_list(companies_list[company]['ticker'], ws, company_list_start_indx,
                                  company_list_end_indx)
         # Fill cells
         # Highlight company name
@@ -42,7 +42,7 @@ def color_params_of_champ_list_5years_dividends_increase_in_row(input_champ_list
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
 
     for company in range(0, len(input_champ_list)):
-        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+        i = find_company_in_list(input_champ_list[company]['ticker'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
         ws_hist['AB' + str(i)].fill = color_fill
@@ -61,7 +61,7 @@ def color_champ_list_after_year_by_year_div_growth_analysis(input_champ_list, hi
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
 
     for company in range(0, len(input_champ_list)):
-        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+        i = find_company_in_list(input_champ_list[company]['ticker'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
         ws_hist['A' + str(i)].fill = color_fill

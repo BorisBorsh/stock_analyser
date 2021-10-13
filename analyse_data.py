@@ -58,7 +58,7 @@ def get_champ_list_after_5years_dividends_increase_in_row_analysis(input_champ_l
 
     resulted_champ_list_div_row = []
     for company in range(0, len(input_champ_list)):
-        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+        i = find_company_in_list(input_champ_list[company]['ticker'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
         if (
@@ -82,7 +82,7 @@ def get_final_champ_list_after_year_by_year_div_growth_analysis(input_champ_list
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
     champ_array_year_by_year_div_growth = []
     for company in range(0, len(input_champ_list)):
-        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+        i = find_company_in_list(input_champ_list[company]['ticker'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
         if (
@@ -122,7 +122,7 @@ def get_final_champ_list_after_year_by_year_div_growth_analysis_contenders(input
     company_hist_list_end_indx = last_company_in_hist_list_cell(ws_hist)
     champ_array_year_by_year_div_growth = []
     for company in range(0, len(input_champ_list)):
-        i = find_company_in_list(input_champ_list[company]['company_name'], ws_hist, company_hist_list_start_indx,
+        i = find_company_in_list(input_champ_list[company]['ticker'], ws_hist, company_hist_list_start_indx,
                                  company_hist_list_end_indx)
 
         if (
